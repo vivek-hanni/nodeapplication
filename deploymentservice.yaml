@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: nodeapp-k8s
-          image: hannidocker/nodeapp:1.2 # Image that will be used to containers in the cluster
+          image: hannidocker/nodeapp:1.10 # Image that will be used to containers in the cluster
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 3000 # The port that the container is running on in the cluster
