@@ -1,12 +1,12 @@
 apiVersion: apps/v1
-kind: Deployment # Kubernetes resource kind we are creating
+kind: Deployment
 metadata:
   name: nodeapp-project
 spec:
   selector:
     matchLabels:
       app: nodeapp
-  replicas: 2 # Number of replicas that will be created for this deployment
+  replicas: 2
   template:
     metadata:
       labels:
@@ -14,23 +14,23 @@ spec:
     spec:
       containers:
         - name: nodeapp-k8s
-          image: hannidocker/nodeapp:1.10 # Image that will be used to containers in the cluster
+          image: hannidocker/nodeapp:1.10
           imagePullPolicy: IfNotPresent
           ports:
-            - containerPort: 3000 # The port that the container is running on in the cluster
+            - containerPort: 3000
 
 
 ---
 
-apiVersion: v1 # Kubernetes API version
-kind: Service # Kubernetes resource kind we are creating
-metadata: # Metadata of the resource kind we are creating
+apiVersion: v1 
+kind: Service 
+metadata: 
   name: nodeapp-project-svc
 spec:
   selector:
     app: nodeapp
   ports:
     - protocol: "TCP"
-      port: 8080 # The port that the service is running on in the cluster
-      targetPort: 3000 # The port exposed by the service
-  type: NodePort # type of the service.
+      port: 8080 
+      targetPort: 3000
+  type: NodePort
