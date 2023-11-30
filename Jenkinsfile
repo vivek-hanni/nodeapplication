@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('git checkout') {
             agent {
-                label 'agent1'
+                label 'master'
             }
             steps {
                 git branch: 'main', credentialsId: 'vivek-hanni2demo', url: 'https://github.com/vivek-hanni/nodeapplication.git'
