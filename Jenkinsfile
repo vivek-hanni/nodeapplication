@@ -17,7 +17,7 @@ pipeline {
             steps {
                 script {
                     def dockerTag = "1.${env.BUILD_NUMBER}"
-                    sh "sudo docker build -t hannidocker/nodeapp:$dockerTag ."
+                    sh "docker build -t hannidocker/nodeapp:$dockerTag ."
                 }
             }
         }
@@ -27,10 +27,10 @@ pipeline {
             }
             steps {
                 withCredentials([string(credentialsId: 'dockerpwd', variable: 'dockerhubpwd')]) {
-                    sh 'sudo docker login -u hannidocker -p $dockerhubpwd'
+                    sh 'docker login -u hannidocker -p $dockerhubpwd'
                     script {
                         def dockerTag = "1.${env.BUILD_NUMBER}" 
-                        sh "sudo docker push hannidocker/nodeapp:$dockerTag"
+                        sh "docker push hannidocker/nodeapp:$dockerTag"
                     }
                 }
             }
