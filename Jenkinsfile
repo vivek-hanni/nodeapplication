@@ -20,7 +20,8 @@ pipeline {
             }
         }
         stage('Docker Push Hub') {
-            agent 'agent1'
+            agent {
+                label 'agent1'
             steps {
                 withCredentials([string(credentialsId: 'dockerpwd', variable: 'dockerhubpwd')]) {
                     bat 'docker login -u hannidocker -p %dockerhubpwd%'
