@@ -11,7 +11,8 @@ pipeline {
             }
         }
         stage('IMAGE') {
-            agent any
+            agent {
+                label 'agent1'
             steps {
                 script {
                     def dockerTag = "1.${env.BUILD_NUMBER}"
@@ -20,7 +21,8 @@ pipeline {
             }
         }
         stage('Docker Push Hub') {
-            agent any
+            agent {
+                label 'agent1'
             steps {
                 withCredentials([string(credentialsId: 'dockerpwd', variable: 'dockerhubpwd')]) {
                     sh 'docker login -u hannidocker -p $dockerhubpwd'
