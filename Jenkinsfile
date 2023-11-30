@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('git checkout') {
             agent {
-                label 'master'
+                label 'agent1'
             }
             steps {
                 git branch: 'main', credentialsId: 'vivek-hanni2demo', url: 'https://github.com/vivek-hanni/nodeapplication.git'
@@ -13,6 +13,7 @@ pipeline {
         stage('IMAGE') {
             agent {
                 label 'master'
+            }
             steps {
                 script {
                     def dockerTag = "1.${env.BUILD_NUMBER}"
@@ -23,6 +24,7 @@ pipeline {
         stage('Docker Push Hub') {
             agent {
                 label 'master'
+            }
             steps {
                 withCredentials([string(credentialsId: 'dockerpwd', variable: 'dockerhubpwd')]) {
                     sh 'docker login -u hannidocker -p $dockerhubpwd'
@@ -35,6 +37,7 @@ pipeline {
         }
     }
 }
+
 
 
 
