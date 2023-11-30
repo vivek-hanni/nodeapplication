@@ -15,25 +15,25 @@ pipeline {
             steps {
                 script {
                     def dockerTag = "1.${env.BUILD_NUMBER}"
-                    bat "docker build -t hannidocker/nodeapp:$dockerTag ." 
+                    sh "docker build -t hannidocker/nodeapp:$dockerTag ."
                 }
             }
         }
         stage('Docker Push Hub') {
-            agent {
-                label 'agent1'
+            agent any
             steps {
                 withCredentials([string(credentialsId: 'dockerpwd', variable: 'dockerhubpwd')]) {
-                    bat 'docker login -u hannidocker -p %dockerhubpwd%'
+                    sh 'docker login -u hannidocker -p $dockerhubpwd'
                     script {
                         def dockerTag = "1.${env.BUILD_NUMBER}" 
-                        bat "docker push hannidocker/nodeapp:$dockerTag"
+                        sh "docker push hannidocker/nodeapp:$dockerTag"
                     }
                 }
             }
         }
     }
 }
+
 
 
 // pipeline {
